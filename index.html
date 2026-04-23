@@ -3,15 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusFlow AI - 開始，不再需要意志力</title>
-    <link rel="stylesheet" href="style.css">
+    <title>FocusFlow AI - 重新定義專注</title>
+    
+    <style>
+        :root {
+            --bg: #000000;
+            --text: #f5f5f7;
+            --text-muted: #86868b;
+            --accent: #2997ff;
+            --glass: rgba(22, 22, 23, 0.8);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro TC", "PingFang TC", sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 頂部毛玻璃導覽列 */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%; height: 50px;
+            background: var(--glass);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000;
+            display: flex; justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-content {
+            width: 100%; max-width: 1000px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; font-size: 13px;
+        }
+
+        .nav-content a { color: var(--text); text-decoration: none; opacity: 0.8; transition: 0.3s; }
+        .nav-content a:hover { opacity: 1; color: var(--accent); }
+
+        /* 捲動滑入動畫 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 第一屏 Hero 區塊 */
+        .hero {
+            height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; padding: 0 20px;
+            background: radial-gradient(circle at center, #1a1a1c 0%, #000 100%);
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 80px);
+            font-weight: 700; letter-spacing: -0.02em;
+            background: linear-gradient(180deg, #fff 0%, #86868b 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-muted); max-width: 700px;
+            margin-bottom: 50px;
+        }
+
+        /* 模擬能量球設計 */
+        .mockup-container {
+            width: 300px; height: 500px;
+            background: #1c1c1e;
+            border: 10px solid #333; border-radius: 40px;
+            position: relative; overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+            margin-top: 20px;
+        }
+
+        .energy-core {
+            width: 140px; height: 140px;
+            background: radial-gradient(circle, #2997ff, #004488, transparent);
+            filter: blur(20px); border-radius: 50%;
+            position: absolute; top: 35%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.9; }
+        }
+
+        /* 內容區塊 */
+        .section { padding: 150px 20px; max-width: 1100px; margin: 0 auto; text-align: center; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; margin-top: 70px;
+        }
+
+        .feature-card {
+            background: #111112; padding: 50px; border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.05);
+            text-align: left; transition: all 0.4s ease;
+        }
+
+        .feature-card:hover { 
+            border-color: rgba(41, 151, 255, 0.5); 
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .feature-card h3 { font-size: 26px; margin-bottom: 15px; color: #fff; font-weight: 600; }
+        .feature-card p { font-size: 17px; color: var(--text-muted); line-height: 1.6; }
+
+        .cta-btn {
+            background: var(--text); color: var(--bg);
+            padding: 16px 36px; border-radius: 980px;
+            font-size: 17px; font-weight: 600; text-decoration: none;
+            transition: 0.3s; display: inline-block;
+        }
+
+        .cta-btn:hover { transform: scale(1.05); background: #fff; }
+    </style>
 </head>
 <body>
+
     <nav class="navbar">
         <div class="nav-content">
-            <a href="index.html" style="font-weight: 600; font-size: 15px;">FocusFlow</a>
+            <a href="index.html" style="font-weight: 600; font-size: 16px; letter-spacing: -0.5px;">FocusFlow</a>
             <div style="display:flex; gap:25px;">
-                <a href="#about">為什麼是能量？</a>
+                <a href="problem.html">為什麼是能量？</a>
                 <a href="#features">功能特色</a>
             </div>
         </div>
@@ -19,46 +153,72 @@
 
     <header class="hero">
         <h1 class="reveal">開始，不再需要意志力。</h1>
-        <p class="reveal">讓對的事，在對的狀態完成。FocusFlow 用 AI 消滅開工焦慮。</p>
+        <p class="reveal">不再被龐大的待辦清單壓垮。FocusFlow 用 AI 消滅你的開工焦慮，讓每次啟動都自然而然。</p>
+        
         <div class="mockup-container reveal">
             <div class="energy-core"></div>
-            <div style="position:absolute; bottom:40px; width:100%; text-align:center; color:#555; font-size:11px; letter-spacing:1px;">
-                SYNCING ENERGY...
+            <div style="position:absolute; bottom:40px; width:100%; text-align:center; color:#666; font-size:12px; letter-spacing:2px; font-weight: 500;">
+                ENERGY SYNCING...
             </div>
         </div>
     </header>
 
-    <section id="about" class="section">
-        <h2 class="reveal" style="font-size: 48px; text-align:center; margin-bottom:20px;">管理能量，而非時間。</h2>
-        <p class="reveal" style="text-align:center; color:var(--text-muted); font-size:22px; max-width:600px; margin:0 auto;">
-            打破傳統排程迷思。透過 AI 偵測心理與能量狀態，將複雜任務拆解為小步驟 [cite: 29, 37]。
+    <section class="section">
+        <h2 class="reveal" style="font-size: 56px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 20px;">管理能量，<br>而非時間。</h2>
+        <p class="reveal" style="font-size: 22px; color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+            人的狀態千變萬化，有時候即便任務再緊急也無心處理。這套系統打破傳統排程迷思，讓對的事，在對的狀態完成。
         </p>
+    </section>
+
+    <section id="features" class="section" style="padding-top: 50px;">
         <div class="grid">
             <div class="feature-card reveal">
-                <h3>AI 降阻引擎</h3>
-                <p>內建工具將龐雜任務具體拆解，徹底根除拖延症的源頭 [cite: 49]。</p>
+                <span style="color:var(--accent); font-size:12px; font-weight:700; letter-spacing:1px;">01</span>
+                <h3 style="margin-top: 10px;">AI 降阻引擎</h3>
+                <p>秉持極簡輸入原則，內建 AI 自動將龐雜任務具體拆解為小步驟，徹底根除拖延症的源頭，使「開始」不再困難。</p>
             </div>
             <div class="feature-card reveal">
-                <h3>能量導向匹配</h3>
-                <p>用自身狀態匹配任務，真正解決有時間卻沒精力執行的痛點 [cite: 47]。</p>
+                <span style="color:var(--accent); font-size:12px; font-weight:700; letter-spacing:1px;">02</span>
+                <h3 style="margin-top: 10px;">能量匹配</h3>
+                <p>透過工具判定用戶現在的能量狀態以做出最好的任務順序安排，真正解決有時間卻沒精力執行的痛點。</p>
             </div>
             <div class="feature-card reveal">
-                <h3>動態節奏配比</h3>
-                <p>主動調控執行與休息時間，避免陷入低效工作的泥沼 [cite: 50]。</p>
+                <span style="color:var(--accent); font-size:12px; font-weight:700; letter-spacing:1px;">03</span>
+                <h3 style="margin-top: 10px;">星星分級</h3>
+                <p>用戶透過五顆星星梳理腦中任務的優先順序，不再讓所有事都被貼上「好像很重要」的標籤，消滅決策疲勞。</p>
             </div>
+            <div class="feature-card reveal">
+                <span style="color:var(--accent); font-size:12px; font-weight:700; letter-spacing:1px;">04</span>
+                <h3 style="margin-top: 10px;">動態節奏控制</h3>
+                <p>不只管理工作，更主動區分出執行任務的時間及休息時間的配比，避免進入低效工作循環的泥沼中。</p>
+            </div>
+        </div>
+
+        <div class="reveal" style="margin-top: 100px;">
+            <a href="problem.html" class="cta-btn">了解背後科學原理</a>
         </div>
     </section>
 
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
+    <footer style="text-align: center; padding: 60px 20px; color: #555; font-size: 13px;">
+        Made by Team: 時間管理大師 | 2026 FocusFlow AI Proposal
+    </footer>
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = { threshold: 0.15 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        });
     </script>
 </body>
 </html>
