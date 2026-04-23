@@ -3,51 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>認知過載解析 - FocusFlow AI</title>
+    <title>認知過載與痛點 - FocusFlow</title>
     <style>
-        :root { --bg: #000; --text: #f5f5f7; --text-m: #86868b; --accent: #2997ff; --glass: rgba(22, 22, 23, 0.8); }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
-        nav { position: fixed; top: 0; width: 100%; height: 48px; background: var(--glass); backdrop-filter: saturate(180%) blur(20px); z-index: 1000; display: flex; justify-content: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .nav-c { width: 100%; max-width: 1024px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: 12px; }
-        .nav-c a { color: var(--text); text-decoration: none; opacity: 0.8; }
-        .reveal { opacity: 0; transform: translateY(30px); transition: 1.2s cubic-bezier(0.15, 0, 0.15, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .container { max-width: 900px; margin: 0 auto; padding: 150px 20px; }
-        h1 { font-size: 72px; text-align: center; margin-bottom: 80px; }
-        .p-block { margin-bottom: 150px; }
-        .p-block h2 { font-size: 48px; margin-bottom: 24px; }
-        .p-block p { font-size: 24px; color: var(--text-m); line-height: 1.6; margin-bottom: 30px; }
-        .highlight { color: #fff; font-weight: 500; }
-        .impact { font-size: 18px; color: #ff3b30; font-weight: 600; letter-spacing: 1px; }
+        :root { --bg: #000; --text: #f5f5f7; --text-m: #86868b; --accent: #ff3b30; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); padding-top: 100px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { font-size: 56px; margin-bottom: 60px; text-align: center; }
+        .card { background: #111; padding: 40px; border-radius: 24px; margin-bottom: 30px; border-left: 4px solid var(--accent); }
+        h2 { font-size: 32px; margin-bottom: 15px; }
+        p { font-size: 20px; color: var(--text-m); line-height: 1.6; }
+        .nav-back { position: fixed; top: 20px; left: 20px; color: var(--text); text-decoration: none; font-size: 14px; opacity: 0.6; }
     </style>
 </head>
 <body>
-    <nav><div class="nav-c"><a href="index.html" style="font-weight: 600;">FocusFlow</a><div style="display:flex; gap:30px;"><a href="index.html">返回首頁</a><a href="faq.html">常見問題</a></div></div></nav>
-    
+    <a href="index.html" class="nav-back">← 返回首頁</a>
     <div class="container">
-        <h1 class="reveal">我們為何越來越累？</h1>
-        
-        <div class="p-block reveal">
-            <h2>認知過載</h2>
-            <p>長期承受各式壓力與資訊碎片化，大腦會進入「節能模式」。當訊息處理能力大幅下降，<span class="highlight">同一件事需花費雙倍時間。</span></p>
-            <div class="impact">導致巔峰精力被瑣碎事務吞噬</div>
+        <h1>為什麼我們越來越累？</h1>
+        <div class="card">
+            <h2>認知過載 (Cognitive Overload)</h2>
+            <p>資訊碎片的轟炸讓大腦長期處於「節能模式」。當訊息處理能力下降，即使是簡單的決策也會變得異常沉重。</p>
         </div>
-
-        <div class="p-block reveal">
-            <h2>拖延症的發生</h2>
-            <p>當任務「看起來」過於複雜，大腦會預期高耗能而產生抗拒，轉向低耗能的補償行為（如發呆或滑手機）。</p>
-            <div class="impact">任務延後形成惡性壓力循環</div>
+        <div class="card">
+            <h2>拖延症的真相</h2>
+            <p>這不是懶惰，而是保護機制。當任務過於龐大，大腦會預期高耗能而產生抗拒，強迫你轉向滑手機等低耗能行為。</p>
         </div>
-
-        <div class="p-block reveal" style="text-align: center;">
-            <a href="index.html" style="background:var(--text); color:#000; padding:18px 45px; border-radius:980px; text-decoration:none; font-size:20px; font-weight:600;">了解解決方案</a>
+        <div class="card" style="border-left-color: #34c759;">
+            <h2>決策疲勞</h2>
+            <p>在清單中挑選「該做什麼」本身就在消耗你僅存的電力。FocusFlow 的目標就是消滅這個過程。</p>
         </div>
     </div>
-
-    <script>
-        const obs = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    </script>
 </body>
 </html>
