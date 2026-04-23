@@ -3,79 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusFlow AI - 重新定義專注</title>
+    <title>FocusFlow AI | 讓對的事，在對的狀態完成</title>
     <style>
-        :root { --bg: #000; --text: #f5f5f7; --text-m: #86868b; --accent: #2997ff; --glass: rgba(22, 22, 23, 0.8); }
+        :root {
+            --bg: #000000;
+            --text: #f5f5f7;
+            --text-m: #86868b;
+            --accent: #2997ff;
+            --error: #ff3b30;
+            --glass: rgba(22, 22, 23, 0.85);
+            --card: #161617;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro TC", sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
         
-        /* 導覽列 */
-        nav { position: fixed; top: 0; width: 100%; height: 48px; background: var(--glass); backdrop-filter: saturate(180%) blur(20px); z-index: 1000; display: flex; justify-content: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .nav-c { width: 100%; max-width: 1024px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: 12px; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro TC", "PingFang TC", "Helvetica Neue", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Apple 質感導覽列 */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 52px;
+            background: var(--glass);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000; display: flex; justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .nav-c { width: 100%; max-width: 1024px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: 13px; font-weight: 500; }
         .nav-c a { color: var(--text); text-decoration: none; opacity: 0.8; transition: 0.3s; }
         .nav-c a:hover { opacity: 1; color: var(--accent); }
 
-        .reveal { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.15, 0, 0.15, 1); }
+        /* 滑動揭曉特效 */
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1.2s cubic-bezier(0.15, 0, 0.15, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Hero */
-        .hero { height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .hero h1 { font-size: clamp(48px, 10vw, 84px); font-weight: 700; letter-spacing: -0.04em; background: linear-gradient(180deg, #fff 50%, #888 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { font-size: 24px; color: var(--text-m); margin-top: 20px; max-width: 700px; }
+        /* Hero 視覺區塊 */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+        .hero h1 { 
+            font-size: clamp(48px, 10vw, 84px); font-weight: 700; letter-spacing: -0.04em; 
+            background: linear-gradient(180deg, #fff 40%, #888 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            line-height: 1.1; margin-bottom: 24px;
+        }
+        .hero p { font-size: clamp(18px, 2.5vw, 26px); color: var(--text-m); max-width: 800px; margin-bottom: 60px; font-weight: 400; }
 
-        /* 能量核心視覺 */
-        .mockup-container { height: 500px; display: flex; justify-content: center; align-items: center; }
-        .core-orb { width: 200px; height: 200px; background: radial-gradient(circle, var(--accent), #003366, transparent); filter: blur(30px); border-radius: 50%; animation: breathe 5s infinite ease-in-out; }
-        @keyframes breathe { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.4); opacity: 0.8; } }
+        /* 能量核心動畫 */
+        .core-container { position: relative; width: 300px; height: 300px; display: flex; justify-content: center; align-items: center; }
+        .core-orb { 
+            width: 140px; height: 140px; 
+            background: radial-gradient(circle, var(--accent), #004488, transparent); 
+            filter: blur(35px); border-radius: 50%; 
+            animation: core-pulse 4s infinite ease-in-out; 
+        }
+        @keyframes core-pulse { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.6); opacity: 0.9; } }
 
-        /* Bento Grid 功能區 */
-        .section { padding: 100px 22px; max-width: 1100px; margin: 0 auto; }
-        .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
-        .b-item { background: #161617; border-radius: 28px; padding: 40px; border: 1px solid rgba(255,255,255,0.05); }
-        .b-1 { grid-column: 1 / 4; } .b-2 { grid-column: 4 / 7; } .b-3 { grid-column: 1 / 7; text-align: center; }
-        .b-item h3 { font-size: 28px; margin-bottom: 15px; }
-        .b-item p { color: var(--text-m); font-size: 18px; }
+        /* 產品層次：痛點分析 */
+        .section-dark { padding: 140px 22px; background: #000; border-top: 1px solid #111; }
+        .section-label { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: 2px; margin-bottom: 20px; display: block; }
+        .section-title { font-size: clamp(32px, 5vw, 56px); font-weight: 700; margin-bottom: 20px; letter-spacing: -0.02em; }
+        .section-desc { font-size: 20px; color: var(--text-m); max-width: 750px; margin: 0 auto 80px; }
 
-        .cta-btn { background: var(--text); color: #000; padding: 18px 40px; border-radius: 980px; text-decoration: none; font-weight: 600; display: inline-block; margin-top: 40px; transition: 0.3s; }
-        .cta-btn:hover { transform: scale(1.05); }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .card { background: var(--card); padding: 50px 40px; border-radius: 32px; text-align: left; transition: 0.4s; border: 1px solid rgba(255,255,255,0.03); }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .card h3 { font-size: 26px; margin-bottom: 15px; font-weight: 600; }
+        .card p { font-size: 17px; color: var(--text-m); line-height: 1.7; }
+        .card.warning h3 { color: var(--error); }
+
+        /* 產品層次：核心技術 (Bento Grid) */
+        .bento-grid { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: minmax(300px, auto); gap: 24px; max-width: 1200px; margin: 0 auto; }
+        .bento-item { background: var(--card); border-radius: 36px; padding: 45px; text-align: left; border: 1px solid rgba(255,255,255,0.05); }
+        .b-large { grid-column: 1 / 4; }
+        .b-medium { grid-column: 4 / 7; }
+        .b-full { grid-column: 1 / 7; text-align: center; }
+
+        /* 按鈕樣式 */
+        .cta-btn { 
+            background: var(--text); color: #000; padding: 18px 45px; border-radius: 980px; 
+            font-size: 18px; font-weight: 600; text-decoration: none; transition: 0.3s; display: inline-block;
+        }
+        .cta-btn:hover { transform: scale(1.05); background: #fff; }
+
+        footer { padding: 80px 22px; text-align: center; color: #444; font-size: 13px; border-top: 1px solid #111; }
+
+        @media (max-width: 768px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .b-large, .b-medium, .b-full { grid-column: 1 / -1; }
+            .hero h1 { font-size: 44px; }
+        }
     </style>
 </head>
 <body>
-    <nav><div class="nav-c">
-        <a href="index.html" style="font-weight: 600; font-size: 16px;">FocusFlow</a>
-        <div style="display:flex; gap:30px;">
-            <a href="problem.html">痛點分析</a>
-            <a href="faq.html">常見問題</a>
-        </div>
-    </div></nav>
 
-    <header class="hero reveal">
-        <h1>開始，不再需要意志力。</h1>
-        <p>打破時間管理的迷思。當你的大腦不再感到阻礙，專注便會隨之而來。</p>
-        <div class="mockup-container"><div class="core-orb"></div></div>
+    <nav>
+        <div class="nav-c">
+            <a href="#" style="font-weight: 700; font-size: 16px; letter-spacing: -0.5px;">FocusFlow</a>
+            <div style="display:flex; gap:30px;">
+                <a href="#problem">痛點</a>
+                <a href="#solution">方案</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1 class="reveal">開始，不再需要意志力。</h1>
+        <p class="reveal">這不是另一款複雜的清單工具。我們透過 AI 降阻引擎，將龐大的目標轉化為順滑的行動。讓你的專注，不再被焦慮吞噬。</p>
+        <div class="core-container reveal">
+            <div class="core-orb"></div>
+            <div style="position:absolute; top:115%; color:var(--accent); font-weight:700; letter-spacing:3px; font-size:12px;">AI ENERGY SYNCING</div>
+        </div>
     </header>
 
-    <section class="section">
-        <div class="bento">
-            <div class="b-item b-1 reveal">
-                <h3>AI 降阻引擎</h3>
-                <p>將龐大的壓力拆解為微小的步履。我們不只告訴你做什麼，更讓你「想做」。</p>
+    <section id="problem" class="section-dark">
+        <div style="text-align:center;">
+            <span class="section-label reveal">THE CHALLENGE</span>
+            <h2 class="section-title reveal">為什麼我們越努力，越疲憊？</h2>
+            <p class="section-desc reveal">傳統的時間管理將大腦視為機器，試圖填滿每一分鐘。但真相是，你的「認知能量」才是決定效率的唯一指標。</p>
+        </div>
+
+        <div class="grid-3">
+            <div class="card warning reveal">
+                <h3>認知過載</h3>
+                <p>資訊碎片的轟炸讓大腦長期處於「節能模式」。當訊息處理能力下降，即使是再簡單的任務，也會顯得重如千斤。</p>
             </div>
-            <div class="b-item b-2 reveal">
-                <h3>能量狀態同步</h3>
-                <p>透過生理節奏分析，在最巔峰的時刻，為你媒合最重要的任務。</p>
+            <div class="card warning reveal">
+                <h3>拖延的科學</h3>
+                <p>這不是懶惰，而是大腦的防禦。當任務看起來過於複雜，你的邊緣系統會預判高耗能而產生抗拒，強迫你轉向低耗能的補償行為。</p>
             </div>
-            <div class="b-item b-3 reveal">
-                <h3>「管理能量，而非時間」</h3>
-                <p>這不是另一個清單工具，而是你的第二大腦，幫你過濾噪音，重拾掌控感。</p>
-                <a href="problem.html" class="cta-btn">深入了解背後邏輯</a>
+            <div class="card warning reveal">
+                <h3>決策疲勞</h3>
+                <p>判斷「現在最該做什麼」本身就是最消耗能量的決策。這導致你在清單前猶豫不決，將最好的精力浪費在低價值的排序上。</p>
             </div>
         </div>
     </section>
 
+    <section id="solution" class="section-dark" style="background: #090909;">
+        <div style="text-align:center;">
+            <span class="section-label reveal">OUR APPROACH</span>
+            <h2 class="section-title reveal">管理能量，而非時間。</h2>
+        </div>
+
+        <div class="bento-grid">
+            <div class="bento-item b-large reveal">
+                <h3 style="color:var(--accent)">AI 降阻引擎</h3>
+                <p>只需丟出一個模糊的想法，AI 會自動為你鋪好台階。將龐雜專案拆解為「5 分鐘即可完成」的微小步驟，徹底根除啟動困難。</p>
+            </div>
+            <div class="bento-item b-medium reveal">
+                <h3 style="color:var(--accent)">狀態自適應匹配</h3>
+                <p>偵測當下的精力水平。在高峰時處理核心目標，在疲憊時無痛媒合輕量事務，讓每一分電力都用在對的地方。</p>
+            </div>
+            <div class="bento-item b-full reveal">
+                <h3 style="color:var(--accent)">不再需要做決定</h3>
+                <p>FocusFlow 幫你過濾雜音。透過五星能量分級，你一眼就能看穿當下唯一重要的一件事。決策不再是負擔，執行才是重點。</p>
+                <a href="#" class="cta-btn">立即重拾專注</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        FocusFlow AI | Made by Team: 時間管理大師 | 2026 產品提案
+    </footer>
+
     <script>
-        const obs = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
