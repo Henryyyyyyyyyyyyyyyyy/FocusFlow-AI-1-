@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusFlow AI - 重新定義專注</title>
+    <title>FocusFlow AI - 開始，不再需要意志力</title>
     <style>
         :root {
-            --bg: #000; --text: #f5f5f7; --text-m: #86868b; --accent: #2997ff;
+            --bg: #000000;
+            --text: #f5f5f7;
+            --text-m: #86868b;
+            --accent: #2997ff;
             --glass: rgba(22, 22, 23, 0.8);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro TC", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro TC", "PingFang TC", sans-serif;
             background: var(--bg); color: var(--text); line-height: 1.5;
             -webkit-font-smoothing: antialiased; overflow-x: hidden;
         }
@@ -23,35 +26,49 @@
             z-index: 1000; display: flex; justify-content: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .nav-c { width: 100%; max-width: 1024px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: 12px; }
+        .nav-c { width: 100%; max-width: 1024px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: 13px; }
         .nav-c a { color: var(--text); text-decoration: none; opacity: 0.8; transition: 0.3s; }
         .nav-c a:hover { opacity: 1; color: var(--accent); }
 
-        /* 動畫類別 */
-        .reveal { opacity: 0; transform: translateY(50px) scale(0.95); transition: all 1.2s cubic-bezier(0.15, 0, 0.15, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+        /* 滑動揭曉動畫 */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1.2s cubic-bezier(0.15, 0, 0.15, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* Hero 區塊 */
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
-        .hero h1 { font-size: clamp(48px, 10vw, 96px); font-weight: 700; letter-spacing: -0.03em; background: linear-gradient(180deg, #fff 30%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; }
-        .hero p { font-size: clamp(20px, 3vw, 28px); color: var(--text-m); max-width: 800px; margin-bottom: 40px; }
+        .hero h1 { 
+            font-size: clamp(48px, 10vw, 84px); font-weight: 700; letter-spacing: -0.03em; 
+            background: linear-gradient(180deg, #fff 40%, #555 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            margin-bottom: 20px; 
+        }
+        .hero p { font-size: clamp(18px, 3vw, 26px); color: var(--text-m); max-width: 800px; margin-bottom: 50px; }
 
-        /* 產品模擬視覺 */
-        .mockup { width: 320px; height: 580px; background: #1c1c1e; border: 10px solid #333; border-radius: 45px; position: relative; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.5); }
-        .core { width: 180px; height: 180px; background: radial-gradient(circle, #2997ff, transparent); filter: blur(25px); border-radius: 50%; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); animation: pulse 5s infinite ease-in-out; }
+        /* 能量核心視覺 */
+        .mockup { width: 300px; height: 520px; background: #1c1c1e; border: 8px solid #333; border-radius: 40px; position: relative; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.6); }
+        .core { 
+            width: 150px; height: 150px; background: radial-gradient(circle, #2997ff, #004488, transparent); 
+            filter: blur(25px); border-radius: 50%; position: absolute; top: 35%; left: 50%; 
+            transform: translate(-50%, -50%); animation: pulse 4s infinite ease-in-out; 
+        }
         @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; } 50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.8; } }
 
-        /* 特色區塊 */
-        .section { padding: 160px 20px; max-width: 1200px; margin: 0 auto; }
-        .sticky-grid { display: flex; flex-wrap: wrap; gap: 60px; align-items: flex-start; }
-        .sticky-t { flex: 1; min-width: 320px; position: sticky; top: 100px; }
-        .sticky-t h2 { font-size: 56px; line-height: 1.1; margin-bottom: 24px; }
-        .f-list { flex: 1; min-width: 320px; display: flex; flex-direction: column; gap: 120px; }
-        .f-card { background: #161617; padding: 60px; border-radius: 35px; border: 1px solid rgba(255,255,255,0.05); }
-        .f-card h3 { font-size: 32px; margin-bottom: 18px; color: var(--accent); }
-        .f-card p { font-size: 20px; color: var(--text-m); }
+        /* 內容區塊 */
+        .section { padding: 160px 20px; max-width: 1200px; margin: 0 auto; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 80px; }
+        .card { 
+            background: #111112; padding: 50px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); 
+            text-align: left; transition: 0.4s; 
+        }
+        .card:hover { border-color: var(--accent); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .card h3 { font-size: 28px; margin-bottom: 15px; color: #fff; }
+        .card p { font-size: 17px; color: var(--text-m); line-height: 1.6; }
 
-        .cta { background: var(--text); color: var(--bg); padding: 18px 45px; border-radius: 980px; font-size: 20px; font-weight: 600; text-decoration: none; transition: 0.3s; display: inline-block; margin-top: 50px; }
+        .cta { 
+            background: var(--text); color: var(--bg); padding: 18px 45px; border-radius: 980px; 
+            font-size: 19px; font-weight: 600; text-decoration: none; transition: 0.3s; 
+            display: inline-block; margin-top: 80px; 
+        }
         .cta:hover { transform: scale(1.05); background: #fff; }
     </style>
 </head>
@@ -59,42 +76,46 @@
     <nav><div class="nav-c">
         <a href="index.html" style="font-weight: 600; font-size: 16px;">FocusFlow</a>
         <div style="display:flex; gap:30px;">
-            <a href="problem.html">認知過載是什麼？</a>
+            <a href="problem.html">為什麼是能量？</a>
             <a href="faq.html">常見問題</a>
         </div>
     </div></nav>
 
     <header class="hero">
         <h1 class="reveal">開始，不再需要意志力。</h1>
-        <p class="reveal">不再被龐大的待辦清單壓垮。<br>FocusFlow 用 AI 消滅你的開工焦慮，讓每一次啟動都自然而然。</p>
-        <div class="mockup reveal"><div class="core"></div></div>
+        <p class="reveal">不再被龐大的待辦清單壓垮。FocusFlow 用 AI 消滅你的開工焦慮，讓每一次啟動都自然而然。</p>
+        <div class="mockup reveal">
+            <div class="core"></div>
+            <div style="position:absolute; bottom:40px; width:100%; text-align:center; color:#555; font-size:12px; letter-spacing:2px;">AI ENERGY MATCHING</div>
+        </div>
     </header>
 
     <section class="section">
-        <div class="sticky-grid">
-            <div class="sticky-t reveal">
-                <h2>能量導向，<br>而非時間。</h2>
-                <p style="color:var(--text-m); font-size:24px;">對抗「認知過載」，我們需要的不是時鐘，而是對自身能量狀態的精準洞察。</p>
+        <h2 class="reveal" style="font-size: 56px; font-weight: 700; margin-bottom: 20px;">管理能量，而非時間。</h2>
+        <p class="reveal" style="font-size: 22px; color: var(--text-m); max-width: 700px; margin: 0 auto;">
+            人的狀態千變萬化，在錯誤的時間做對的事只會事倍功半。FocusFlow 透過偵測你的能量頻率，為你媒合最適合的任務。
+        </p>
+        
+        <div class="grid">
+            <div class="card reveal">
+                <h3 style="color:var(--accent);">AI 降阻引擎</h3>
+                <p>將龐雜任務自動拆解為微小步驟，徹底根除拖延症的源頭，讓「開始」不再困難。</p>
             </div>
-            <div class="f-list">
-                <div class="f-card reveal">
-                    <h3>AI 降阻引擎</h3>
-                    <p>自動將龐雜任務拆解為微小、可執行的步驟，徹底根除拖延症的源頭。</p>
-                </div>
-                <div class="f-card reveal">
-                    <h3>狀態自適應</h3>
-                    <p>根據你當前的能量水平，動態調整任務優先順序，讓你在巔峰時刻處理核心目標。</p>
-                </div>
-                <div class="f-card reveal">
-                    <h3>動態節奏配比</h3>
-                    <p>主動調控專注與休息的黃金比例，確保產出質量的同時，避免大腦陷入內耗。</p>
-                </div>
+            <div class="card reveal">
+                <h3 style="color:var(--accent);">能量匹配系統</h3>
+                <p>利用輕量化 AI 判定當前能量狀態，精準安排任務順序，解決有時間卻沒精力執行的痛點。</p>
+            </div>
+            <div class="card reveal">
+                <h3 style="color:var(--accent);">五星優先級</h3>
+                <p>透過星星分級梳理腦中任務，消滅「好像很重要」的標籤，讓決策不再疲勞。</p>
             </div>
         </div>
+
+        <a href="problem.html" class="cta reveal">了解背後的科學</a>
     </section>
 
-    <footer style="text-align:center; padding: 100px 20px; color: #444; font-size: 12px;">
-        FocusFlow AI Project | 2026 產品提案
+    <footer style="padding: 100px 20px; text-align: center; color: #444; font-size: 13px;">
+        Made by Team: 時間管理大師 | FocusFlow AI 專案
     </footer>
 
     <script>
