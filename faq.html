@@ -3,46 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - FocusFlow AI</title>
-    <link rel="stylesheet" href="style.css">
+    <title>常見問題 - FocusFlow AI</title>
+    <style>
+        :root {
+            --bg: #000000;
+            --text: #f5f5f7;
+            --text-muted: #86868b;
+            --accent: #2997ff;
+            --glass: rgba(22, 22, 23, 0.8);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro TC", "PingFang TC", sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Apple 質感導覽列 */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%; height: 48px;
+            background: var(--glass);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000;
+            display: flex; justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-content {
+            width: 100%; max-width: 1024px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; font-size: 13px;
+        }
+
+        .nav-content a { color: var(--text); text-decoration: none; opacity: 0.8; transition: 0.3s; }
+        .nav-content a:hover { opacity: 1; color: var(--accent); }
+
+        /* 滑動揭曉動畫 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.15, 0, 0.15, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 150px 20px; }
+
+        h1 {
+            font-size: clamp(40px, 8vw, 64px);
+            font-weight: 700; letter-spacing: -0.02em;
+            text-align: center;
+            background: linear-gradient(180deg, #fff 0%, #86868b 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 80px;
+        }
+
+        /* FAQ 列表設計 */
+        .faq-list { display: flex; flex-direction: column; gap: 40px; }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 40px;
+        }
+
+        .faq-item h3 {
+            font-size: 24px; font-weight: 600; margin-bottom: 16px; color: #fff;
+            display: flex; gap: 15px;
+        }
+
+        .faq-item h3::before {
+            content: "Q"; color: var(--accent); font-weight: 800;
+        }
+
+        .faq-item p {
+            font-size: 18px; color: var(--text-muted); line-height: 1.6;
+            padding-left: 35px; position: relative;
+        }
+
+        .faq-item p::before {
+            content: "A"; position: absolute; left: 0; top: 0;
+            font-weight: 800; color: #fff; opacity: 0.5;
+        }
+
+        .btn {
+            background: var(--text); color: var(--bg);
+            padding: 16px 36px; border-radius: 980px;
+            font-size: 17px; font-weight: 600; text-decoration: none;
+            transition: 0.3s; display: inline-block;
+            margin-top: 60px;
+        }
+        .btn:hover { transform: scale(1.05); background: #fff; }
+
+    </style>
 </head>
 <body>
+
     <nav class="navbar">
         <div class="nav-content">
             <a href="index.html" style="font-weight: 600; font-size: 16px;">FocusFlow</a>
             <div style="display:flex; gap:25px;">
+                <a href="index.html">返回首頁</a>
                 <a href="problem.html">為什麼是能量？</a>
-                <a href="faq.html">常見問題</a>
             </div>
         </div>
     </nav>
 
-    <section class="section" style="padding-top:150px;">
-        <h2 class="reveal" style="text-align:center; font-size:48px; margin-bottom:60px;">常見問題</h2>
-        
+    <div class="container">
+        <h1 class="reveal">常見問題</h1>
+
         <div class="faq-list">
             <div class="faq-item reveal">
                 <h3>我們真正想要打造出什麼？</h3>
-                <p>一個不同於以往的任務兼時間管理 App，專注於解決「有時間卻沒精力」的真實痛點。 [cite: 117, 118]</p>
+                <p>一個不同於以往的任務兼時間管理 App。我們認為大部分的人之所以沒辦法有效完成待辦清單，是因為沒有察覺到自身的狀態，導致在錯誤的時間做對的事，讓效率事倍功半。</p>
             </div>
+
+            <div class="faq-item reveal">
+                <h3>為什麼強調「能量」而非「時間」？</h3>
+                <p>時間是固定的，但能量是流動的。FocusFlow 核心理念在於「管理能量，讓對的事在對的狀態完成」，這才是解決拖延與內耗的根本之道。</p>
+            </div>
+
             <div class="faq-item reveal">
                 <h3>使用者是否需要輸入大量資訊 AI 才能運作？</h3>
-                <p>不，我們開發了輕量化 AI 策略，利用最少的資訊產出最有價值的建議，避免操作過程本末倒置。 [cite: 121]</p>
+                <p>不需要。為了避免操作繁瑣以致本末倒置，系統內建的 AI 特別編寫為「利用最少的資訊產出最多的內容」。用戶無需提供過多資訊即可獲得精確的任務拆解與建議。</p>
             </div>
+
             <div class="faq-item reveal">
-                <h3>這對 ADHD 或易分心族群有幫助嗎？</h3>
-                <p>是的，FocusFlow 透過任務拆解與能量安排，特別能解決「啟動困難」與「無法判斷優先順序」的執行功能痛點。 [cite: 43]</p>
+                <h3>如果 AI 分析不夠準確怎麼辦？</h3>
+                <p>我們將功能進行了「高度自定義化」處理。用戶可以依自身喜好與真實體感對 AI 建議做調整。隨著使用時間增加，系統會更精準地學習你的個人節奏。</p>
             </div>
         </div>
-    </section>
+
+        <div style="text-align: center;" class="reveal">
+            <a href="index.html" class="btn">開始掌控你的節奏</a>
+        </div>
+    </div>
 
     <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
     </script>
 </body>
 </html>
