@@ -2,46 +2,172 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>產品痛點 - FocusFlow AI</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>為什麼需要 FocusFlow？ | 深度解析</title>
+    <style>
+        :root {
+            --bg: #000000;
+            --text: #f5f5f7;
+            --text-muted: #86868b;
+            --accent: #2997ff;
+            --glass: rgba(22, 22, 23, 0.8);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro TC", "PingFang TC", sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Apple 質感導覽列 */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%; height: 44px;
+            background: var(--glass);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000;
+            display: flex; justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-content {
+            width: 100%; max-width: 1000px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; font-size: 12px;
+        }
+
+        .nav-content a { color: var(--text); text-decoration: none; opacity: 0.8; transition: 0.3s; }
+        .nav-content a:hover { opacity: 1; color: var(--accent); }
+
+        /* 滑動揭曉動畫 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section { padding: 150px 20px; max-width: 1100px; margin: 0 auto; }
+
+        .title-group { text-align: center; margin-bottom: 100px; }
+        .title-group h1 {
+            font-size: clamp(40px, 8vw, 72px);
+            font-weight: 700; letter-spacing: -0.02em;
+            background: linear-gradient(180deg, #fff 0%, #86868b 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        /* 痛點卡片設計 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: #111112; border-radius: 30px; padding: 60px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.4s; position: relative; overflow: hidden;
+        }
+
+        .card:hover { border-color: var(--accent); }
+
+        .card h3 { font-size: 32px; margin-bottom: 20px; color: #fff; }
+        .card p { font-size: 19px; color: var(--text-muted); line-height: 1.6; }
+        
+        .tag {
+            font-size: 12px; font-weight: 700; color: var(--accent);
+            text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px;
+        }
+
+        .cta-container { text-align: center; margin-top: 100px; }
+        .btn {
+            background: var(--text); color: var(--bg);
+            padding: 18px 40px; border-radius: 980px;
+            font-size: 19px; font-weight: 600; text-decoration: none;
+            transition: 0.3s; display: inline-block;
+        }
+        .btn:hover { transform: scale(1.05); background: #fff; }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .card { padding: 40px; }
+        }
+    </style>
 </head>
 <body>
+
     <nav class="navbar">
-        <div class="nav-links">
-            <a href="index.html" class="nav-logo">FocusFlow</a>
-            <a href="problem.html">為什麼需要？</a>
-            <a href="index.html#features">功能特色</a>
-            <a href="faq.html">常見問題</a>
+        <div class="nav-content">
+            <a href="index.html" style="font-weight: 600; font-size: 15px;">FocusFlow</a>
+            <div style="display:flex; gap:25px;">
+                <a href="index.html">返回首頁</a>
+                <a href="faq.html">常見問題</a>
+            </div>
         </div>
     </nav>
 
-    <section class="section fade-in" style="padding-top: 120px;">
-        <h2 style="font-size: 48px; margin-bottom: 20px;">為什麼我們越來越累？</h2>
-        <p style="margin-bottom: 60px;">長期處於「認知過載」與沒有精力的狀態，是效率低下的根本原因。</p>
+    <section class="section">
+        <div class="title-group reveal">
+            <h1>我們為何越來越累？</h1>
+            <p style="font-size: 24px; color: var(--text-muted); max-width: 700px; margin: 0 auto;">
+                現代人的大腦正處於前所未有的「認知過載」。當電力耗盡，再好的時間管理工具也無法讓你動起來。
+            </p>
+        </div>
 
         <div class="grid">
-            <div class="card">
-                <h3 style="color: #d73a49;">拖延症</h3>
-                <p>當任務過於複雜，大腦會預期高耗能而產生抗拒，轉向滑手機等低耗能補償行為。</p>
+            <div class="card reveal">
+                <span class="tag">Problem 01</span>
+                <h3>拖延症的機制</h3>
+                <p>當任務看起來過於複雜時，大腦會因預期的高耗能而產生抗拒，轉而偏好滑手機、發呆等低耗能補償行為。</p>
+                <p style="margin-top:20px; font-size: 15px; color: #ff3b30;">負面代價：任務不斷延後，壓縮未來可用時間，形成惡性壓力循環。</p>
             </div>
-            <div class="card">
-                <h3 style="color: #d73a49;">心情低落</h3>
-                <p>精力耗盡導致情緒韌性下降，產生的「情緒餘波」會持續吞噬高效工作的可能性。</p>
+
+            <div class="card reveal">
+                <span class="tag">Problem 02</span>
+                <h3>決策疲勞</h3>
+                <p>在資訊碎片化時代，判斷「現在最該做什麼」本身就是最消耗能量的決策行為。這會讓你將巔峰精力浪費在低價值事務。</p>
             </div>
-            <div class="card">
-                <h3 style="color: #d73a49;">專注力下降</h3>
-                <p>疲勞使大腦進入節能模式，導致頻繁分心，重新進入狀態的切換成本極高。</p>
+
+            <div class="card reveal">
+                <span class="tag">Problem 03</span>
+                <h3>專注力懸崖</h3>
+                <p>疲勞使大腦進入「節能模式」，訊息處理能力大幅下降。同一件事需花費雙倍時間，且切換狀態的成本極高。</p>
             </div>
-            <div class="card">
-                <h3 style="color: #d73a49;">決策疲勞</h3>
-                <p>在資訊碎片化時代，判斷「現在該做什麼」本身就是最消耗能量的行為。</p>
+
+            <div class="card reveal">
+                <span class="tag">Problem 04</span>
+                <h3>情緒餘波</h3>
+                <p>精力耗盡會導致情緒韌性下降，容易產生煩躁感。後續的溝通修復成本將持續吞噬高效工作的可能性。</p>
             </div>
         </div>
 
-        <div style="margin-top: 80px;">
-            <p style="font-size: 22px; font-weight: 500;">這就是我們要解決的問題。</p>
-            <a href="index.html#features" class="btn" style="margin-top: 20px;">看看解決方案</a>
+        <div class="cta-container reveal">
+            <a href="index.html" class="btn">看看 FocusFlow 如何解決</a>
         </div>
     </section>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
