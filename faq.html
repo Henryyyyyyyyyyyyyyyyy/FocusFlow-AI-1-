@@ -2,45 +2,47 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>常見問題 - FocusFlow AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - FocusFlow AI</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-links">
-            <a href="index.html" class="nav-logo">FocusFlow</a>
-            <a href="problem.html">為什麼需要？</a>
-            <a href="index.html#features">功能特色</a>
-            <a href="faq.html">常見問題</a>
+        <div class="nav-content">
+            <a href="index.html" style="font-weight: 600; font-size: 16px;">FocusFlow</a>
+            <div style="display:flex; gap:25px;">
+                <a href="problem.html">為什麼是能量？</a>
+                <a href="faq.html">常見問題</a>
+            </div>
         </div>
     </nav>
 
-    <section class="section fade-in" style="padding-top: 120px; text-align: left;">
-        <h2 style="font-size: 40px; margin-bottom: 50px; text-align: center;">常見問題 FAQ</h2>
-
-        <div class="faq-item">
-            <h3>Q: 我們真正想要打造出什麼？</h3>
-            <p>A: 一個不同於以往、專注於個人能量狀態而非死板時間表的任務管理 App。</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Q: 為什麼強調「能量」而非「時間」？</h3>
-            <p>A: 大部分人之所以沒辦法有效完成待辦清單，是因為沒有察覺自身狀態。在錯誤的時間做對的事，效率會事倍功半。</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Q: 使用者是否需要輸入大量資訊 AI 才能運作？</h3>
-            <p>A: 為了避免操作繁瑣導致本末倒置，FocusFlow 內建 AI 系統特別編寫為利用「最少資訊」產出「最多內容」，用戶無需過度訓練 AI 即可使用。</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Q: AI 分析如果不準確怎麼辦？</h3>
-            <p>A: 我們將功能進行了「高度自定義化」的處理。用戶可以依照自身喜好做各種調整與變化，確保系統完美契合你的節奏。</p>
-        </div>
-
-        <div style="text-align: center; margin-top: 60px;">
-            <a href="index.html" class="btn">回到首頁</a>
+    <section class="section" style="padding-top:150px;">
+        <h2 class="reveal" style="text-align:center; font-size:48px; margin-bottom:60px;">常見問題</h2>
+        
+        <div class="faq-list">
+            <div class="faq-item reveal">
+                <h3>我們真正想要打造出什麼？</h3>
+                <p>一個不同於以往的任務兼時間管理 App，專注於解決「有時間卻沒精力」的真實痛點。 [cite: 117, 118]</p>
+            </div>
+            <div class="faq-item reveal">
+                <h3>使用者是否需要輸入大量資訊 AI 才能運作？</h3>
+                <p>不，我們開發了輕量化 AI 策略，利用最少的資訊產出最有價值的建議，避免操作過程本末倒置。 [cite: 121]</p>
+            </div>
+            <div class="faq-item reveal">
+                <h3>這對 ADHD 或易分心族群有幫助嗎？</h3>
+                <p>是的，FocusFlow 透過任務拆解與能量安排，特別能解決「啟動困難」與「無法判斷優先順序」的執行功能痛點。 [cite: 43]</p>
+            </div>
         </div>
     </section>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
