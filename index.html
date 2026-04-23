@@ -3,126 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusFlow AI - 開始，不再需要意志力</title>
+    <title>FocusFlow AI - 重新定義專注的未來</title>
     <style>
         :root {
-            --bg: #000000;
-            --text: #f5f5f7;
-            --text-m: #86868b;
-            --accent: #2997ff;
-            --glass: rgba(22, 22, 23, 0.8);
+            --bg: #000; --text: #f5f5f7; --text-m: #86868b; --accent: #2997ff;
+            --glass: rgba(22, 22, 23, 0.85); --card: #161617;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro TC", "PingFang TC", sans-serif;
             background: var(--bg); color: var(--text); line-height: 1.5;
             -webkit-font-smoothing: antialiased; overflow-x: hidden;
         }
 
-        /* 導覽列 */
+        /* 導覽列：真正的 Apple 毛玻璃 */
         nav {
             position: fixed; top: 0; width: 100%; height: 48px;
             background: var(--glass); backdrop-filter: saturate(180%) blur(20px);
             z-index: 1000; display: flex; justify-content: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .nav-c { width: 100%; max-width: 1024px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: 13px; }
+        .nav-c { width: 100%; max-width: 1024px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: 12px; }
         .nav-c a { color: var(--text); text-decoration: none; opacity: 0.8; transition: 0.3s; }
         .nav-c a:hover { opacity: 1; color: var(--accent); }
 
         /* 滑動揭曉動畫 */
-        .reveal { opacity: 0; transform: translateY(50px); transition: all 1.2s cubic-bezier(0.15, 0, 0.15, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal { opacity: 0; transform: translateY(40px) scale(0.98); transition: all 1s cubic-bezier(0.15, 0, 0.15, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+
+        /* 區塊通用樣式 */
+        .section { padding: 140px 22px; max-width: 1200px; margin: 0 auto; text-align: center; }
 
         /* Hero 區塊 */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
-        .hero h1 { 
-            font-size: clamp(48px, 10vw, 84px); font-weight: 700; letter-spacing: -0.03em; 
-            background: linear-gradient(180deg, #fff 40%, #555 100%); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            margin-bottom: 20px; 
-        }
-        .hero p { font-size: clamp(18px, 3vw, 26px); color: var(--text-m); max-width: 800px; margin-bottom: 50px; }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .hero h1 { font-size: clamp(48px, 12vw, 92px); font-weight: 700; letter-spacing: -0.04em; background: linear-gradient(180deg, #fff 50%, #888 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+        .hero p { font-size: clamp(18px, 3vw, 28px); color: var(--text-m); max-width: 800px; margin-bottom: 40px; }
 
-        /* 能量核心視覺 */
-        .mockup { width: 300px; height: 520px; background: #1c1c1e; border: 8px solid #333; border-radius: 40px; position: relative; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.6); }
-        .core { 
-            width: 150px; height: 150px; background: radial-gradient(circle, #2997ff, #004488, transparent); 
-            filter: blur(25px); border-radius: 50%; position: absolute; top: 35%; left: 50%; 
-            transform: translate(-50%, -50%); animation: pulse 4s infinite ease-in-out; 
-        }
-        @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; } 50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.8; } }
+        /* 能量核心：會呼吸的視覺 */
+        .mockup { width: 300px; height: 550px; background: #1c1c1e; border: 10px solid #333; border-radius: 44px; position: relative; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.5); }
+        .core { width: 160px; height: 160px; background: radial-gradient(circle, #2997ff, transparent); filter: blur(30px); border-radius: 50%; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); animation: pulse 4s infinite ease-in-out; }
+        @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; } 50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.8; } }
 
-        /* 內容區塊 */
-        .section { padding: 160px 20px; max-width: 1200px; margin: 0 auto; text-align: center; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 80px; }
-        .card { 
-            background: #111112; padding: 50px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); 
-            text-align: left; transition: 0.4s; 
-        }
-        .card:hover { border-color: var(--accent); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .card h3 { font-size: 28px; margin-bottom: 15px; color: #fff; }
-        .card p { font-size: 17px; color: var(--text-m); line-height: 1.6; }
+        /* 痛點區塊 (Dark Mode Apple Style) */
+        .problem-section { background: #000; }
+        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 60px; }
+        .p-card { background: var(--card); padding: 40px; border-radius: 28px; text-align: left; }
+        .p-card h3 { font-size: 24px; margin-bottom: 12px; color: #ff3b30; }
+        .p-card p { font-size: 17px; color: var(--text-m); }
 
-        .cta { 
-            background: var(--text); color: var(--bg); padding: 18px 45px; border-radius: 980px; 
-            font-size: 19px; font-weight: 600; text-decoration: none; transition: 0.3s; 
-            display: inline-block; margin-top: 80px; 
+        /* Bento Grid 功能區塊 */
+        .bento { display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(2, 300px); gap: 20px; margin-top: 60px; }
+        .b-item { background: var(--card); border-radius: 30px; padding: 40px; text-align: left; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(255,255,255,0.05); }
+        .b-item:hover { transform: scale(1.02); border-color: var(--accent); }
+        .b-item h3 { font-size: 28px; margin-bottom: 15px; }
+        .b-1 { grid-column: 1 / 4; }
+        .b-2 { grid-column: 4 / 7; }
+        .b-3 { grid-column: 1 / 3; }
+        .b-4 { grid-column: 3 / 7; }
+
+        /* FAQ */
+        .faq { max-width: 800px; margin: 0 auto; text-align: left; }
+        .faq-i { border-bottom: 1px solid #333; padding: 30px 0; }
+        .faq-i h4 { font-size: 20px; margin-bottom: 10px; color: var(--accent); }
+
+        .btn { background: var(--text); color: #000; padding: 18px 45px; border-radius: 980px; font-size: 19px; font-weight: 600; text-decoration: none; display: inline-block; transition: 0.3s; margin-top: 40px; }
+        .btn:hover { transform: scale(1.05); background: #fff; }
+
+        @media (max-width: 768px) {
+            .bento { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .b-1, .b-2, .b-3, .b-4 { grid-column: 1 / -1; }
         }
-        .cta:hover { transform: scale(1.05); background: #fff; }
     </style>
 </head>
 <body>
     <nav><div class="nav-c">
-        <a href="index.html" style="font-weight: 600; font-size: 16px;">FocusFlow</a>
-        <div style="display:flex; gap:30px;">
-            <a href="problem.html">為什麼是能量？</a>
-            <a href="faq.html">常見問題</a>
+        <a href="#" style="font-weight: 600; font-size: 16px;">FocusFlow</a>
+        <div style="display:flex; gap:25px;">
+            <a href="#problem">問題背景</a>
+            <a href="#features">功能</a>
+            <a href="#faq">FAQ</a>
         </div>
     </div></nav>
 
-    <header class="hero">
+    <header class="section hero">
         <h1 class="reveal">開始，不再需要意志力。</h1>
         <p class="reveal">不再被龐大的待辦清單壓垮。FocusFlow 用 AI 消滅你的開工焦慮，讓每一次啟動都自然而然。</p>
-        <div class="mockup reveal">
-            <div class="core"></div>
-            <div style="position:absolute; bottom:40px; width:100%; text-align:center; color:#555; font-size:12px; letter-spacing:2px;">AI ENERGY MATCHING</div>
-        </div>
+        <div class="mockup reveal"><div class="core"></div></div>
     </header>
 
-    <section class="section">
-        <h2 class="reveal" style="font-size: 56px; font-weight: 700; margin-bottom: 20px;">管理能量，而非時間。</h2>
-        <p class="reveal" style="font-size: 22px; color: var(--text-m); max-width: 700px; margin: 0 auto;">
-            人的狀態千變萬化，在錯誤的時間做對的事只會事倍功半。FocusFlow 透過偵測你的能量頻率，為你媒合最適合的任務。
-        </p>
-        
-        <div class="grid">
-            <div class="card reveal">
-                <h3 style="color:var(--accent);">AI 降阻引擎</h3>
-                <p>將龐雜任務自動拆解為微小步驟，徹底根除拖延症的源頭，讓「開始」不再困難。</p>
+    <section id="problem" class="section problem-section">
+        <h2 class="reveal" style="font-size: 48px; margin-bottom: 15px;">為什麼我們越來越累？</h2>
+        <p class="reveal" style="color:var(--text-m); font-size: 20px;">長期處於「認知過載」與沒有精力的狀態，是效率低下的根本原因。</p>
+        <div class="problem-grid">
+            <div class="p-card reveal">
+                <h3>拖延症</h3>
+                <p>任務看起來太複雜，大腦會因預期的高耗能而產生抗拒，轉向低耗能的補償行為。</p>
             </div>
-            <div class="card reveal">
-                <h3 style="color:var(--accent);">能量匹配系統</h3>
-                <p>利用輕量化 AI 判定當前能量狀態，精準安排任務順序，解決有時間卻沒精力執行的痛點。</p>
+            <div class="p-card reveal">
+                <h3>決策疲勞</h3>
+                <p>判斷「現在最該做什麼」本身就是最消耗能量的決策，導致巔峰精力被瑣事浪費。</p>
             </div>
-            <div class="card reveal">
-                <h3 style="color:var(--accent);">五星優先級</h3>
-                <p>透過星星分級梳理腦中任務，消滅「好像很重要」的標籤，讓決策不再疲勞。</p>
+            <div class="p-card reveal">
+                <h3>專注力懸崖</h3>
+                <p>疲勞使大腦進入節能模式，導致頻繁分心，重新進入狀態的切換成本極高。</p>
             </div>
         </div>
-
-        <a href="problem.html" class="cta reveal">了解背後的科學</a>
     </section>
 
-    <footer style="padding: 100px 20px; text-align: center; color: #444; font-size: 13px;">
-        Made by Team: 時間管理大師 | FocusFlow AI 專案
+    <section id="features" class="section">
+        <h2 class="reveal" style="font-size: 48px;">管理能量，而非時間。</h2>
+        <div class="bento">
+            <div class="b-item b-1 reveal">
+                <h3>AI 降阻引擎</h3>
+                <p>自動將龐雜任務拆解為微小步驟，徹底根除拖延症的源頭。</p>
+            </div>
+            <div class="b-item b-2 reveal">
+                <h3>能量匹配</h3>
+                <p>透過 AI 判定你現在的能量狀態，媒合最適合當下執行的任務。</p>
+            </div>
+            <div class="b-item b-3 reveal">
+                <h3>星星分級</h3>
+                <p>五顆星梳理任務優先順序，消滅決策疲勞。</p>
+            </div>
+            <div class="b-item b-4 reveal">
+                <h3>動態節奏控制</h3>
+                <p>主動調控執行與休息配比，避免陷入無效工作的泥沼。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="section">
+        <h2 class="reveal" style="font-size: 48px; margin-bottom: 50px;">常見問題</h2>
+        <div class="faq reveal">
+            <div class="faq-i">
+                <h4>我們真正想要打造出什麼？</h4>
+                <p style="color:var(--text-m)">一個專注於解決「有時間卻沒精力」的任務管理 App。</p>
+            </div>
+            <div class="faq-i">
+                <h4>為什麼強調「能量」？</h4>
+                <p style="color:var(--text-m)">因為在錯誤的時間做對的事，效率只會事倍功半。</p>
+            </div>
+            <div class="faq-i">
+                <h4>使用者需要輸入大量資訊嗎？</h4>
+                <p style="color:var(--text-m)">不需要。內建 AI 利用最少的資訊產出最精確的任務拆解建議。</p>
+            </div>
+        </div>
+        <a href="#" class="btn reveal">立即體驗 FocusFlow</a>
+    </section>
+
+    <footer style="padding: 80px 20px; color: #444; font-size: 13px;">
+        FocusFlow AI | 2026 產品提案
     </footer>
 
     <script>
-        const obs = new IntersectionObserver((es) => {
-            es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
