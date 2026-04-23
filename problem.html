@@ -3,148 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>為什麼需要 FocusFlow？ | 能量管理科學</title>
+    <title>認知過載解析 - FocusFlow AI</title>
     <style>
-        :root {
-            --bg: #000000;
-            --text: #f5f5f7;
-            --text-muted: #86868b;
-            --accent: #2997ff;
-            --glass: rgba(22, 22, 23, 0.8);
-        }
-
+        :root { --bg: #000; --text: #f5f5f7; --text-m: #86868b; --accent: #2997ff; --glass: rgba(22, 22, 23, 0.8); }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro TC", "PingFang TC", sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.5;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Apple 毛玻璃導覽列 */
-        .navbar {
-            position: fixed;
-            top: 0; width: 100%; height: 48px;
-            background: var(--glass);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            z-index: 1000;
-            display: flex; justify-content: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .nav-content {
-            width: 100%; max-width: 1000px;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 20px; font-size: 13px;
-        }
-
-        .nav-content a { color: var(--text); text-decoration: none; opacity: 0.8; transition: 0.3s; }
-        .nav-content a:hover { opacity: 1; color: var(--accent); }
-
-        /* 捲動動畫特效 */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1.2s cubic-bezier(0.15, 0, 0.15, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section { padding: 120px 20px; max-width: 1100px; margin: 0 auto; }
-
-        /* 標題設計 */
-        .title-group { text-align: center; margin-bottom: 80px; }
-        .title-group h1 {
-            font-size: clamp(40px, 8vw, 72px);
-            font-weight: 700; letter-spacing: -0.02em;
-            background: linear-gradient(180deg, #fff 0%, #86868b 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-
-        /* 痛點卡片設計 (Apple 卡片流) */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background: #111112; border-radius: 30px; padding: 50px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.4s ease;
-            text-align: left;
-        }
-
-        .card:hover { 
-            border-color: var(--accent); 
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .card h3 { font-size: 28px; margin-bottom: 15px; color: #fff; font-weight: 600; }
-        .card p { font-size: 17px; color: var(--text-muted); line-height: 1.6; }
-        
-        .tag {
-            font-size: 12px; font-weight: 700; color: var(--accent);
-            text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 10px;
-        }
-
-        .btn {
-            background: var(--text); color: var(--bg);
-            padding: 16px 36px; border-radius: 980px;
-            font-size: 17px; font-weight: 600; text-decoration: none;
-            transition: 0.3s; display: inline-block;
-            margin-top: 60px;
-        }
-        .btn:hover { transform: scale(1.05); background: #fff; }
-
-        @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; }
-        }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+        nav { position: fixed; top: 0; width: 100%; height: 48px; background: var(--glass); backdrop-filter: saturate(180%) blur(20px); z-index: 1000; display: flex; justify-content: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .nav-c { width: 100%; max-width: 1024px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: 12px; }
+        .nav-c a { color: var(--text); text-decoration: none; opacity: 0.8; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1.2s cubic-bezier(0.15, 0, 0.15, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .container { max-width: 900px; margin: 0 auto; padding: 150px 20px; }
+        h1 { font-size: 72px; text-align: center; margin-bottom: 80px; }
+        .p-block { margin-bottom: 150px; }
+        .p-block h2 { font-size: 48px; margin-bottom: 24px; }
+        .p-block p { font-size: 24px; color: var(--text-m); line-height: 1.6; margin-bottom: 30px; }
+        .highlight { color: #fff; font-weight: 500; }
+        .impact { font-size: 18px; color: #ff3b30; font-weight: 600; letter-spacing: 1px; }
     </style>
 </head>
 <body>
-
-    <nav class="navbar">
-        <div class="nav-content">
-            <a href="index.html" style="font-weight: 600; font-size: 16px;">FocusFlow</a>
-            <div style="display:flex; gap:25px;">
-                <a href="index.html">返回首頁</a>
-                <a href="faq.html">常見問題</a>
-            </div>
-        </div>
-    </nav>
-
-    <section class="section">
-        <div class="title-group reveal">
-            <h1>我們為何越來越累？</h1>
-            <p style="font-size: 24px; color: var(--text-muted); max-width: 800px; margin: 0 auto;">
-                當大腦進入「認知過載」狀態，同一件事需花費雙倍時間。我們需要的不是更滿的行程表，而是能量的精準配比。
-            </p>
+    <nav><div class="nav-c"><a href="index.html" style="font-weight: 600;">FocusFlow</a><div style="display:flex; gap:30px;"><a href="index.html">返回首頁</a><a href="faq.html">常見問題</a></div></div></nav>
+    
+    <div class="container">
+        <h1 class="reveal">我們為何越來越累？</h1>
+        
+        <div class="p-block reveal">
+            <h2>認知過載</h2>
+            <p>長期承受各式壓力與資訊碎片化，大腦會進入「節能模式」。當訊息處理能力大幅下降，<span class="highlight">同一件事需花費雙倍時間。</span></p>
+            <div class="impact">導致巔峰精力被瑣碎事務吞噬</div>
         </div>
 
-        <div class="grid">
-            <div class="card reveal">
-                <span class="tag">Problem 01</span>
-                <h3>拖延症的發生</h3>
-                <p>當任務看起來過於複雜時，大腦會因預期的高耗能而產生抗拒，轉而偏好滑手機、發呆等低耗能行為補償。</p>
-            </div>
+        <div class="p-block reveal">
+            <h2>拖延症的發生</h2>
+            <p>當任務「看起來」過於複雜，大腦會預期高耗能而產生抗拒，轉向低耗能的補償行為（如發呆或滑手機）。</p>
+            <div class="impact">任務延後形成惡性壓力循環</div>
+        </div>
 
-            <div class="card reveal">
-                <span class="tag">Problem 02</span>
-                <h3>心情低落與內耗</h3>
-                <p>精力耗盡導致情緒韌性下降，容易煩躁。後續的溝通成本與「情緒餘波」將持續吞噬高效工作的可能性。</p>
-            </div>
+        <div class="p-block reveal" style="text-align: center;">
+            <a href="index.html" style="background:var(--text); color:#000; padding:18px 45px; border-radius:980px; text-decoration:none; font-size:20px; font-weight:600;">了解解決方案</a>
+        </div>
+    </div>
 
-            <div class="card reveal">
-                <span class="tag">Problem 03</span>
-                <h3>專注力懸崖</h3>
-                <p>疲勞使大腦進入節能模式，導致頻繁分心，重新
+    <script>
+        const obs = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    </script>
+</body>
+</html>
