@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg: #000; --text: #f5f5f7; --text-m: #86868b; --accent: #2997ff;
-            --glass: rgba(22, 22, 23, 0.85); --card: #161617; --error: #ff3b30;
+            --glass: rgba(22, 22, 23, 0.85); --card: #161617;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
@@ -21,6 +21,7 @@
         nav {
             position: fixed; top: 0; width: 100%; height: 52px;
             background: var(--glass); backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
             z-index: 1000; display: flex; justify-content: center;
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
@@ -28,50 +29,65 @@
         .nav-c a { color: var(--text); text-decoration: none; opacity: 0.8; transition: 0.3s; }
         .nav-c a:hover { opacity: 1; color: var(--accent); }
 
-        /* 動畫類別 */
-        .reveal { opacity: 0; transform: translateY(50px) scale(0.98); transition: all 1.2s cubic-bezier(0.15, 0, 0.15, 1); }
+        /* 滑動揭曉動畫 */
+        .reveal { opacity: 0; transform: translateY(40px) scale(0.98); transition: all 1s cubic-bezier(0.15, 0, 0.15, 1); }
         .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
 
-        .section { padding: 120px 22px; max-width: 1200px; margin: 0 auto; text-align: center; }
+        .section { padding: 160px 22px; max-width: 1200px; margin: 0 auto; text-align: center; }
 
         /* Hero 區塊 */
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .hero h1 { font-size: clamp(48px, 12vw, 92px); font-weight: 700; letter-spacing: -0.04em; background: linear-gradient(180deg, #fff 50%, #888 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
-        .hero p { font-size: clamp(18px, 2.5vw, 24px); color: var(--text-m); max-width: 750px; margin-bottom: 50px; }
+        .hero p { font-size: clamp(18px, 2.5vw, 24px); color: var(--text-m); max-width: 750px; margin-bottom: 50px; line-height: 1.6; }
 
-        /* 能量核心視覺 */
+        /* 能量核心 */
         .mockup { width: 320px; height: 550px; background: #1c1c1e; border: 12px solid #333; border-radius: 48px; position: relative; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.6); }
-        .core { width: 180px; height: 180px; background: radial-gradient(circle, var(--accent), #004488, transparent); filter: blur(30px); border-radius: 50%; position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); animation: pulse 4s infinite ease-in-out; }
+        .core { width: 160px; height: 160px; background: radial-gradient(circle, #2997ff, #004488, transparent); filter: blur(30px); border-radius: 50%; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); animation: pulse 4s infinite ease-in-out; }
         @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; } 50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.9; } }
 
-        /* 認知過載區塊 */
-        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 60px; }
-        .p-card { background: var(--card); padding: 50px; border-radius: 32px; text-align: left; border: 1px solid rgba(255,255,255,0.03); position: relative; }
-        .p-card h3 { font-size: 26px; margin-bottom: 15px; color: var(--error); font-weight: 600; }
-        .p-card p { font-size: 18px; color: var(--text-m); }
+        /* 痛點區塊 */
+        .problem-section { background: #000; }
+        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 80px; }
+        .p-card { background: var(--card); padding: 50px; border-radius: 32px; text-align: left; border: 1px solid rgba(255,255,255,0.03); }
+        .p-card h3 { font-size: 26px; margin-bottom: 15px; color: #ff3b30; font-weight: 600; }
+        .p-card p { font-size: 18px; color: var(--text-m); line-height: 1.6; }
 
-        /* 互動模擬器容器 */
-        .simulator-section { background: #080808; border-radius: 48px; padding: 100px 22px; margin: 40px auto; border: 1px solid #111; }
-        .sim-box { max-width: 600px; margin: 0 auto; background: #161617; padding: 60px 40px; border-radius: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
-        #brain-orb { width: 140px; height: 140px; background: var(--accent); border-radius: 50%; margin: 0 auto 50px; filter: blur(20px); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 30px rgba(41, 151, 255, 0.3); }
+        /* --- 互動模擬器樣式 --- */
+        .simulator-section { background: #080808; border-radius: 48px; padding: 100px 22px; margin: 40px auto; }
+        .sim-box { max-width: 600px; margin: 0 auto; background: #161617; padding: 60px 40px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.05); }
+        #brain-orb { width: 130px; height: 130px; background: var(--accent); border-radius: 50%; margin: 0 auto 50px; filter: blur(20px); transition: 0.3s; }
+        input[type=range] { width: 100%; accent-color: var(--accent); margin: 20px 0; cursor: pointer; }
+
+        /* 核心哲學 */
+        .philosophy { max-width: 800px; margin: 0 auto 100px; text-align: left; }
+        .philosophy h2 { font-size: 48px; margin-bottom: 25px; line-height: 1.2; }
+        .philosophy p { font-size: 22px; color: var(--text-m); line-height: 1.7; }
 
         /* Bento Grid 功能區塊 */
-        .bento { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: minmax(320px, auto); gap: 24px; margin-top: 60px; }
-        .b-item { background: var(--card); border-radius: 36px; padding: 50px; text-align: left; transition: 0.5s cubic-bezier(0.15, 0, 0.15, 1); border: 1px solid rgba(255,255,255,0.05); }
-        .b-item:hover { transform: translateY(-10px); border-color: var(--accent); }
-        .b-1 { grid-column: 1 / 4; } .b-2 { grid-column: 4 / 7; } .b-3 { grid-column: 1 / 3; } .b-4 { grid-column: 3 / 7; }
-
-        input[type=range] { -webkit-appearance: none; width: 100%; background: #333; height: 6px; border-radius: 3px; outline: none; margin: 20px 0; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: var(--accent); border-radius: 50%; cursor: pointer; border: 4px solid #000; }
+        .bento { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: minmax(320px, auto); gap: 24px; margin-top: 40px; }
+        .b-item { background: var(--card); border-radius: 36px; padding: 50px; text-align: left; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(255,255,255,0.05); }
+        .b-item:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .b-item h3 { font-size: 30px; margin-bottom: 20px; font-weight: 600; }
+        .b-item p { font-size: 18px; color: var(--text-m); line-height: 1.6; }
+        
+        .b-1 { grid-column: 1 / 4; }
+        .b-2 { grid-column: 4 / 7; }
+        .b-3 { grid-column: 1 / 3; }
+        .b-4 { grid-column: 3 / 7; }
 
         /* FAQ */
         .faq { max-width: 800px; margin: 0 auto; text-align: left; }
         .faq-i { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 40px 0; }
-        .faq-i h4 { font-size: 22px; margin-bottom: 15px; }
+        .faq-i h4 { font-size: 22px; margin-bottom: 15px; color: #fff; font-weight: 600; }
+        .faq-i p { font-size: 18px; color: var(--text-m); line-height: 1.7; }
+
+        .btn { background: var(--text); color: #000; padding: 18px 45px; border-radius: 980px; font-size: 19px; font-weight: 600; text-decoration: none; display: inline-block; transition: 0.3s; margin-top: 80px; }
+        .btn:hover { transform: scale(1.05); background: #fff; }
 
         @media (max-width: 768px) {
             .bento { grid-template-columns: 1fr; }
             .b-1, .b-2, .b-3, .b-4 { grid-column: 1 / -1; }
+            .b-item { padding: 40px; }
         }
     </style>
 </head>
@@ -80,7 +96,6 @@
         <a href="#" style="font-weight: 600; font-size: 16px;">FocusFlow</a>
         <div style="display:flex; gap:25px;">
             <a href="#problem">認知過載</a>
-            <a href="#simulator">互動實驗</a>
             <a href="#features">能量管理</a>
             <a href="#faq">常見問題</a>
         </div>
@@ -91,40 +106,37 @@
         <p class="reveal">打破傳統待辦清單的枷鎖。FocusFlow 透過獨家 AI 降阻引擎，精準匹配你的能量狀態。讓每一次的專注，都像呼吸一樣自然。</p>
         <div class="mockup reveal">
             <div class="core"></div>
-            <div style="position:absolute; bottom:40px; width:100%; text-align:center; color:#555; font-size:12px; letter-spacing:2px; font-weight:600;">ENERGY SYNCING...</div>
+            <div style="position:absolute; bottom:40px; width:100%; text-align:center; color:#666; font-size:12px; letter-spacing:2px; font-weight:600;">ENERGY SYNCING...</div>
         </div>
     </header>
 
-    <section id="problem" class="section">
+    <section id="problem" class="section problem-section">
         <h2 class="reveal" style="font-size: 56px; margin-bottom: 20px; font-weight: 700;">為什麼我們越努力，卻越疲憊？</h2>
-        <p class="reveal" style="color:var(--text-m); font-size: 24px; max-width: 800px; margin: 0 auto;">長期處於「認知過載」與沒有精力的狀態，是效率低下的根本原因。</p>
+        <p class="reveal" style="color:var(--text-m); font-size: 24px; max-width: 800px; margin: 0 auto;">現代人的大腦，正處於前所未有的「認知過載」。當電力耗盡，再好的時間管理工具也無法讓你動起來。</p>
+        
         <div class="problem-grid">
             <div class="p-card reveal">
                 <h3>拖延症的真相</h3>
-                <p>當任務看起來過於複雜時，大腦會因預期的高耗能而產生抗拒，強迫你轉向滑手機等低耗能補償行為。</p>
+                <p>不是你不夠自律。當任務看起來過於複雜時，大腦會因預期的高耗能而自動觸發保護機制，轉而偏好滑手機等低耗能補償行為。</p>
             </div>
             <div class="p-card reveal">
                 <h3>致命的決策疲勞</h3>
-                <p>判斷「現在最該做什麼」本身就是最消耗能量的行為。導致你將巔峰精力浪費在低價值事務。</p>
+                <p>在資訊碎片化時代，判斷「現在最該做什麼」本身就是最消耗能量的行為。這導致我們常將一天中最巔峰的精力，浪費在低價值的事務上。</p>
             </div>
             <div class="p-card reveal">
                 <h3>專注力懸崖</h3>
-                <p>疲勞使大腦進入「節能模式」，訊息處理能力斷崖式下跌。切換狀態的成本變得極高。</p>
+                <p>疲勞使大腦強制進入「節能模式」，訊息處理能力斷崖式下跌。這讓同一件事需花費雙倍時間，且重新進入狀態的切換成本極高。</p>
             </div>
         </div>
     </section>
 
-    <section id="simulator" class="section simulator-section reveal">
+    <section class="section simulator-section reveal">
         <h2 style="font-size: 40px; font-weight: 700; margin-bottom: 15px;">互動實驗：直觀感受認知過載</h2>
         <p style="color: var(--text-m); font-size: 20px; margin-bottom: 60px;">拖動滑桿，觀察任務複雜度如何癱瘓你的意志力。</p>
-
         <div class="sim-box">
             <div id="brain-orb"></div>
             <div id="status-label" style="font-size: 22px; font-weight: 700; margin-bottom: 30px; color: var(--accent);">狀態：運作良好</div>
-            
-            <div style="text-align: left; font-size: 14px; color: var(--text-m); margin-bottom: 10px;">模擬待辦清單複雜度</div>
             <input type="range" id="stress-range" min="0" max="100" value="20">
-            
             <div id="ai-msg" style="margin-top: 40px; font-size: 17px; background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; min-height: 80px;">
                 💡 FocusFlow 建議：目前大腦資源充足，適合處理核心目標。
             </div>
@@ -132,31 +144,31 @@
     </section>
 
     <section id="features" class="section">
-        <div class="philosophy reveal" style="text-align: left; max-width: 800px; margin: 0 auto 80px;">
-            <h2 style="font-size: 48px; margin-bottom: 25px;">時間是平等的，<br>但你的能量不是。</h2>
-            <p style="font-size: 22px; color: var(--text-m);">我們不管理時鐘上的數字，我們幫你找到最佳的能量頻率。讓對的事，在對的狀態完成。</p>
+        <div class="philosophy reveal">
+            <h2>時間是平等的，<br>但你的能量不是。</h2>
+            <p>傳統的排程軟體把你當作機器，試圖將任務塞滿每一分鐘。但 FocusFlow 知道，你的狀態千變萬化。在低谷時強迫自己深度思考只會事倍功半；在巔峰時處理瑣碎郵件更是對才華的浪費。我們不管理時鐘上的數字，我們幫你找到最佳的能量頻率。</p>
         </div>
 
         <div class="bento">
             <div class="b-item b-1 reveal">
-                <span style="color:var(--accent); font-size:12px; font-weight:700; letter-spacing:1px; display:block; margin-bottom:15px;">FEATURE 01</span>
+                <span style="color:var(--accent); font-size:14px; font-weight:700; letter-spacing:1px; display:block; margin-bottom:10px;">FEATURE 01</span>
                 <h3>AI 降阻引擎</h3>
-                <p>自動將龐雜任務精準拆解為 5 分鐘的小步驟，徹底瓦解啟動困難，讓行動像呼吸一樣自然。</p>
+                <p>丟下一個龐大的目標，AI 會自動為你鋪好台階。將複雜任務精準拆解為 5 分鐘能完成的微小步驟，徹底瓦解你的「啟動困難」，讓開始行動不再需要做心理建設。</p>
             </div>
             <div class="b-item b-2 reveal">
-                <span style="color:var(--accent); font-size:12px; font-weight:700; letter-spacing:1px; display:block; margin-bottom:15px;">FEATURE 02</span>
+                <span style="color:var(--accent); font-size:14px; font-weight:700; letter-spacing:1px; display:block; margin-bottom:10px;">FEATURE 02</span>
                 <h3>狀態自適應匹配</h3>
-                <p>精準媒合你當下的能量頻率。巅峰時攻堅，疲憊時休整，讓精力發揮最大價值。</p>
+                <p>根據你當下的生理與心理狀態，動態調整任務優先級。把最耗能的挑戰留給你的巔峰時刻，讓疲憊的你也能優雅、無痛地處理輕量瑣事。</p>
             </div>
             <div class="b-item b-3 reveal">
-                <span style="color:var(--accent); font-size:12px; font-weight:700; letter-spacing:1px; display:block; margin-bottom:15px;">FEATURE 03</span>
-                <h3>星星分級</h3>
-                <p>五星分級梳理腦中雜音。一眼看穿當下最重要的一件事，消滅無謂的決策疲勞。</p>
+                <span style="color:var(--accent); font-size:14px; font-weight:700; letter-spacing:1px; display:block; margin-bottom:10px;">FEATURE 03</span>
+                <h3>決策過濾系統</h3>
+                <p>告別「每件事都很急」的焦慮。透過五星能量分級，系統幫你過濾雜音，一眼看穿當下唯一重要的一件事。</p>
             </div>
             <div class="b-item b-4 reveal">
-                <span style="color:var(--accent); font-size:12px; font-weight:700; letter-spacing:1px; display:block; margin-bottom:15px;">FEATURE 04</span>
+                <span style="color:var(--accent); font-size:14px; font-weight:700; letter-spacing:1px; display:block; margin-bottom:10px;">FEATURE 04</span>
                 <h3>動態節奏配比</h3>
-                <p>主動調控專注與休息的黃金配比。不只是工作，更是在守護你的產出韌性，避免陷入內耗循環。</p>
+                <p>高效產出不該以透支為代價。系統主動為你調控專注與休息的黃金比例，避免陷入無效工作的泥沼，在不知不覺中帶你進入心流狀態。</p>
             </div>
         </div>
     </section>
@@ -165,12 +177,16 @@
         <h2 class="reveal" style="font-size: 56px; margin-bottom: 60px;">常見問題</h2>
         <div class="faq reveal">
             <div class="faq-i">
-                <h4>FocusFlow 如何解決「不想動」的問題？</h4>
-                <p>傳統軟體依賴意志力，而我們透過 AI 降阻。將任務微型化到大腦「不抗拒」的程度，是我們的核心祕密。</p>
+                <h4>FocusFlow 和普通的 Notion 或 TickTick 有什麼不同？</h4>
+                <p>市面上的軟體多為「萬能筆記」或「排程自動化」，它們依賴你的主動輸入與極高的執行力。FocusFlow 是唯一的「能量導向管理」工具，我們解決的是你看著待辦清單卻「不想動」的心理空缺。</p>
             </div>
             <div class="faq-i">
-                <h4>能量管理需要複雜的數據輸入嗎？</h4>
-                <p>完全不用。我們秉持極簡原則，透過 AI 輕量化策略，從極少資訊中產出最懂你的執行路徑。</p>
+                <h4>使用者需要輸入大量資訊來訓練 AI 嗎？</h4>
+                <p>完全不用。秉持極簡輸入原則，FocusFlow 內建的輕量化 AI 利用極少量的資訊就能產出高價值的建議，避免操作過程繁瑣以致本末倒置。</p>
+            </div>
+            <div class="faq-i">
+                <h4>這對容易分心或拖延族群有幫助嗎？</h4>
+                <p>非常適合。從心理學的「執行功能」角度來看，拖延族群最大的痛點是「無法判斷優先順序」與「啟動困難」。FocusFlow 的 AI 降阻引擎正是為了解決這兩個痛點而生。</p>
             </div>
         </div>
         <a href="#" class="btn reveal">立即體驗 FocusFlow</a>
@@ -181,7 +197,7 @@
     </footer>
 
     <script>
-        // 捲動動畫
+        // 滾動觀察器
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -191,7 +207,7 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // 模擬器邏輯
+        // 模擬器腳本
         const slider = document.getElementById('stress-range');
         const brain = document.getElementById('brain-orb');
         const statusLabel = document.getElementById('status-label');
@@ -220,7 +236,7 @@
                 statusLabel.innerText = '偵測到認知過載！';
                 statusLabel.style.color = '#ff3b30';
                 aiMsg.innerHTML = '⚠️ 系統警報：大腦進入保護機制（節能模式）。建議暫停決策，休息 5 分鐘重置能量。';
-                // 顫抖效果
+                // 顫抖特效
                 brain.style.transform = `scale(${scale}) translate(${(Math.random()-0.5)*5}px, ${(Math.random()-0.5)*5}px)`;
             }
         });
